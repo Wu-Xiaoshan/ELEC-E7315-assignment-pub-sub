@@ -1,0 +1,10 @@
+# Python 垃圾文件
+__pycache__/
+*.pyc
+venv/
+
+# 系统文件
+.DS_Store
+
+# ！！！非常重要：忽略 Google Cloud 的密钥文件！！！
+*.json
