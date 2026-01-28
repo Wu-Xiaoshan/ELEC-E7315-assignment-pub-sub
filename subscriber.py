@@ -45,10 +45,10 @@ print(f"Listening for messages on {subscription_path}...\n")
 streaming_pull_future = subscriber.subscribe(subscription_path, callback=callback)
 
 try:
-    streaming_pull_future.result(timeout=120)
-except TimeoutError:
-    streaming_pull_future.cancel()
-    print("\nTimeout reached, stopping listener.")
+    streaming_pull_future.result()
+#except TimeoutError:
+#    streaming_pull_future.cancel()
+#    print("\nTimeout reached, stopping listener.")
 except KeyboardInterrupt:
     streaming_pull_future.cancel()
     print("\nStopped by user.")
