@@ -60,11 +60,23 @@ for i in range(1, 101):
     except Exception as e:
         print(f"!! Error publishing message {i}: {e}")
 
+
 print("Waiting for futures to complete...")
-try:
-    futures.wait(publish_futures, return_when=futures.ALL_COMPLETED)
-except Exception as e:
-    print(f"Error during wait: {e}")
+done, not_done = futures.wait(publish_futures, return_when=futures.ALL_COMPLETED)
 
 end_time = time.time()
+
+success_count = 0
+error_count = 0
+
+for f in done:
+    try:
+        f.result()
+        success_count += 1
+    except Exception as e:
+        error_count += 1
+        if error_count == 1:
+            print(f"First error detected: {e}")
+
 print(f"Finished. Total time: {end_time - start_time:.4f}s")
+print(f"--- Summary: Success={success_count}, Failed={error_count} ---")
